@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::namespace('Api')->group(function () {
+    Route::apiResource('patients', 'PatientsController');
+    Route::apiResource('staffs', 'StaffsController');
+    Route::apiResource('healthInformation', 'HealthInformationController');
+    Route::apiResource('medication', 'MedicationController');
+    Route::apiResource('prescription', 'PrescriptionController');
+    Route::apiResource('visit', 'VisitController');
+});

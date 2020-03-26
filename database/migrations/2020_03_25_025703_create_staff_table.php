@@ -24,7 +24,7 @@ class CreateStaffTable extends Migration
             $table->string('address2')->nullable();
             $table->string('city');
             $table->string('state');
-            $table->string('zipcode');
+            $table->string('zipCode');
             $table->string('phoneNumber');
             $table->enum('position', ['doctor', 'nurse']);
             $table->timestamps();
