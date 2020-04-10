@@ -26,3 +26,5 @@ Route::namespace('Api')->group(function () {
     Route::apiResource('prescription', 'PrescriptionController');
     Route::apiResource('visit', 'VisitController');
 });
+
+Route::post('/login', 'API\LoginController@authenticate');
