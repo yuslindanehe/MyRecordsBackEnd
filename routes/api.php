@@ -18,7 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('Api')->group(function () {
+Route::group(['middleware' => 'api'], function () {
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', 'AuthController@login');
+        Route::post('logout', 'AuthController@logout');
+        Route::post('refresh', 'AuthController@refresh');
+        Route::post('me', 'AuthController@me');
+    });
+
     Route::apiResource('patients', 'PatientsController');
     Route::apiResource('staffs', 'StaffsController');
     Route::apiResource('healthInformation', 'HealthInformationController');
@@ -27,4 +34,4 @@ Route::namespace('Api')->group(function () {
     Route::apiResource('visit', 'VisitController');
 });
 
-Route::post('/login', 'API\LoginController@authenticate');
+//Route::post('/login', 'API\LoginController@authenticate');
