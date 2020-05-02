@@ -24,14 +24,16 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('logout', 'AuthController@logout');
         Route::post('refresh', 'AuthController@refresh');
         Route::get('user', 'AuthController@me');
+        Route::post('authenticate-code', 'AuthController@authenticate2FACode');
+        Route::get('send-code', 'AuthController@send2FACode');
     });
 
-    Route::apiResource('patients', 'PatientsController');
-    Route::apiResource('staffs', 'StaffsController');
-    Route::apiResource('healthInformation', 'HealthInformationController');
-    Route::apiResource('medication', 'MedicationController');
-    Route::apiResource('prescription', 'PrescriptionController');
-    Route::apiResource('visit', 'VisitController');
+    Route::apiResource('patients', 'Api/PatientsController');
+    Route::apiResource('staffs', 'Api/StaffsController');
+    Route::apiResource('healthInformation', 'Api/HealthInformationController');
+    Route::apiResource('medication', 'Api/MedicationController');
+    Route::apiResource('prescription', 'Api/PrescriptionController');
+    Route::apiResource('visit', 'Api/VisitController');
 });
 
-//Route::post('/login', 'API\LoginController@authenticate');
+

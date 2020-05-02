@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
@@ -29,6 +30,8 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+
+        $this->send2FACode();
 
         return response()->json([
             'access_token' => $token,
@@ -82,5 +85,24 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
+    }
+
+    public function authenticate2FACode(Request $request) {
+        $user = auth()->user();
+        $user->fresh();
+        if ($user->two_fa_token == $request->get('code')) {
+            return response()->json('ok',200);
+        } else {
+            return response()->json('incorrect code', 401);
+        }
+    }
+
+    public function send2FACode() {
+        $user = auth()->user();
+        $code = rand ( 11111 , 99999 );
+        $user->send2FACode($code);
+
+        $user->two_fa_token = $code;
+        $user->save();
     }
 }
