@@ -75,7 +75,7 @@ class MedicationController extends Controller
                 $data[] = [
                     'prescription_date' => $prescription->date,
                     'medication_name' => $medication->name,
-                    'refill_or_not' => $medication->refillable,
+                    'refill_or_not' => $medication->refillable?'Yes':'No',
                     'medication_quantity' => $medication->qty,
                     'instruction' => $medication->instruction,
                     'prescribe_by' => Staff::find($prescription->prescribedBy)->firstName . " " . Staff::find($prescription->prescribedBy)->lastName
