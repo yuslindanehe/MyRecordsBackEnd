@@ -6,8 +6,9 @@ namespace App\Http\Controllers\Api;
 use Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
-class LoginController
+class LoginController extends Controller
 {
     public function authenticate(Request $request)
     {

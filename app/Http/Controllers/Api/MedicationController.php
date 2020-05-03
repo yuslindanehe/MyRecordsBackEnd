@@ -9,6 +9,7 @@ use App\Prescription;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Staff;
 
 class MedicationController extends Controller
 {
@@ -66,11 +67,22 @@ class MedicationController extends Controller
     {
         $patient = Patient::where('emailAddress', Auth::user()->email)->first();
         $prescriptions = Prescription::where('patient_id', $patient->id)->get();
-        $medications = collect();
+        $data = [];
         foreach($prescriptions as $prescription) {
-            $medications = $medications->merge($prescription->medication);
+//            $prescription->date;
+            $medications = $prescription->medication;
+            foreach($medications as $medication) {
+                $data[] = [
+                    'prescription_date' => $prescription->date,
+                    'medication_name' => $medication->name,
+                    'refill_or_not' => $medication->refillable,
+                    'medication_quantity' => $medication->qty,
+                    'instruction' => $medication->instruction,
+                    'prescribe_by' => Staff::find($prescription->prescribedBy)->firstName . " " . Staff::find($prescription->prescribedBy)->lastName
+                ];
+            }
         }
 
-        return $medications;
+        return $data;
     }
 }

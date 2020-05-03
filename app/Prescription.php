@@ -12,4 +12,8 @@ class Prescription extends Model
     public function medication() {
         return $this->hasMany('App\Medication', 'prescriptionId', 'id');
     }
+
+    public function staff() {
+        return $this->belongsTo('App\Staff','prescribedBy', 'id');
+    }
 }
