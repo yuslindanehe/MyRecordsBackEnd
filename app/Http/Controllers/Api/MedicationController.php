@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Medication;
+use App\Patient;
+use App\Prescription;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MedicationController extends Controller
 {
@@ -56,5 +60,17 @@ class MedicationController extends Controller
     public function destroy($prescriptionId)
     {
         return Medication::where('prescriptionId', $prescriptionId)->delete();
+    }
+
+    public function showBasedOnPatient()
+    {
+        $patient = Patient::where('emailAddress', Auth::user()->email)->first();
+        $prescriptions = Prescription::where('patient_id', $patient->id)->get();
+        $medications = collect();
+        foreach($prescriptions as $prescription) {
+            $medications = $medications->merge($prescription->medication);
+        }
+
+        return $medications;
     }
 }

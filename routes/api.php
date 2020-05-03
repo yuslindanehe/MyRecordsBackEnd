@@ -27,13 +27,12 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('authenticate-code', 'AuthController@authenticate2FACode');
         Route::get('send-code', 'AuthController@send2FACode');
     });
-
-    Route::apiResource('patients', 'Api/PatientsController');
-    Route::apiResource('staffs', 'Api/StaffsController');
-    Route::apiResource('healthInformation', 'Api/HealthInformationController');
-    Route::apiResource('medication', 'Api/MedicationController');
-    Route::apiResource('prescription', 'Api/PrescriptionController');
-    Route::apiResource('visit', 'Api/VisitController');
 });
 
+Route::get('medication/patient/','Api\MedicationController@showBasedOnPatient');
 
+Route::apiResource('patients', 'Api\PatientsController');
+Route::apiResource('staffs', 'Api\StaffsController');
+Route::apiResource('healthInformation', 'Api\HealthInformationController');
+Route::apiResource('prescription', 'Api\PrescriptionController');
+Route::apiResource('visit', 'Api\VisitController');
