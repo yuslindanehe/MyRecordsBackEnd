@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Patient;
+use Illuminate\Support\Facades\Auth;
 use App\HealthInformation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -66,5 +68,18 @@ class HealthInformationController extends Controller
     public function destroy($patientId)
     {
         return HealthInformation::where('patientId', $patientId)->firstOrFail()->delete();
+    }
+
+    public function showBasedOnPatient()
+    {
+        $patient = Patient::where('emailAddress', Auth::user()->email)->first();
+        $healthInformation = HealthInformation::where('patientId', $patient->id)->first();
+        return [
+            'patient_height' => $healthInformation->height,
+            'patient_weight' => $healthInformation->weight,
+            'detail_allergies' => $healthInformation->allergies,
+            'immunization_history' => $healthInformation->immunizationHistory,
+            'illnessHistory' => $healthInformation->illnessHistory
+        ];
     }
 }
