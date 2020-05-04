@@ -74,12 +74,14 @@ class HealthInformationController extends Controller
     {
         $patient = Patient::where('emailAddress', Auth::user()->email)->first();
         $healthInformation = HealthInformation::where('patientId', $patient->id)->first();
-        return [
+        $data[] = [
             'patient_height' => $healthInformation->height,
             'patient_weight' => $healthInformation->weight,
             'detail_allergies' => $healthInformation->allergies,
             'immunization_history' => $healthInformation->immunizationHistory,
             'illnessHistory' => $healthInformation->illnessHistory
         ];
+
+        return $data;
     }
 }
