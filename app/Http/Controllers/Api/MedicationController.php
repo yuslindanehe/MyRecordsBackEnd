@@ -69,7 +69,6 @@ class MedicationController extends Controller
         $prescriptions = Prescription::where('patient_id', $patient->id)->get();
         $data = [];
         foreach($prescriptions as $prescription) {
-//            $prescription->date;
             $medications = $prescription->medication;
             foreach($medications as $medication) {
                 $data[] = [
