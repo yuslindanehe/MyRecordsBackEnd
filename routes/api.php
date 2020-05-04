@@ -30,7 +30,11 @@ Route::group(['middleware' => 'api'], function () {
 });
 
 Route::get('medication/patient/','Api\MedicationController@showBasedOnPatient');
+
+Route::post('test-result', 'Api\TestResultController@store');
 Route::get('test-result/patient/','Api\TestResultController@showBasedOnPatient');
+
+
 Route::get('health-information/patient/','Api\HealthInformationController@showBasedOnPatient');
 
 Route::apiResource('patients', 'Api\PatientsController');

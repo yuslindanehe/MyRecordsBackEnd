@@ -27,4 +27,15 @@ class TestResultController extends Controller
 
         return $data;
     }
+
+    public function store(Request $request)
+    {
+        return TestResult::create($request->only([
+            'patientId',
+            'testDate',
+            'testName',
+            'testResult',
+            'orderedBy'
+        ]));
+    }
 }
