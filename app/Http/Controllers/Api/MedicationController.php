@@ -21,13 +21,19 @@ class MedicationController extends Controller
      */
     public function store(Request $request)
     {
-        return Medication::create($request->only([
-            'name',
-            'qty',
-            'reffilable',
-            'instruction',
-            'prescriptionId'
+        $prescription = Prescription::create($request->only([
+            'date',
+            'prescribedBy',
+            'patient_id'
         ]));
+
+        return Medication::create(
+            ['name' => $request->get('name'),
+            'qty' => $request->get('qty'),
+            'refillable' => $request->get('refillable'),
+            'instruction' => $request->get('instruction'),
+            'prescriptionId' => $prescription->id
+        ]);
     }
 
     /**
