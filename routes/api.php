@@ -39,6 +39,6 @@ Route::get('health-information/patient/','Api\HealthInformationController@showBa
 
 Route::apiResource('patients', 'Api\PatientsController');
 Route::apiResource('staffs', 'Api\StaffsController');
-Route::apiResource('healthInformation', 'Api\HealthInformationController');
+Route::apiResource('health-information', 'Api\HealthInformationController');
 Route::apiResource('prescription', 'Api\PrescriptionController');
 Route::apiResource('visit', 'Api\VisitController');

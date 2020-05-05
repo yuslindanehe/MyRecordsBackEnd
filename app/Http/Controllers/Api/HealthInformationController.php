@@ -18,8 +18,7 @@ class HealthInformationController extends Controller
      */
     public function store(Request $request)
     {
-        return HealthInformation::create($request->only([
-            'patientId',
+        return HealthInformation::updateOrCreate(['patientId' => $request->get('patientId')], $request->only([
             'height',
             'allergies',
             'immunizationHistory',
