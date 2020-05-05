@@ -29,6 +29,8 @@ Route::group(['middleware' => 'api'], function () {
     });
 });
 
+Route::post('signUp','Api\PatientsController@register');
+
 Route::get('medication/patient/','Api\MedicationController@showBasedOnPatient');
 Route::post('medication/','Api\MedicationController@store');
 

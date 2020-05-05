@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Hash;
+use App\User;
 use App\Http\Controllers\Controller;
 use App\Patient;
 use Illuminate\Http\Request;
@@ -88,5 +90,26 @@ class PatientsController extends Controller
     public function destroy($id)
     {
         return Patient::findOrFail($id)->delete();
+    }
+
+    public function register(Request $request) {
+        Patient::create([
+            'emailAddress' => $request->get('emailAddress'),
+            'firstName' => $request->get('firstName'),
+            'lastName' => $request->get('lastName'),
+            'dob' => $request->get('dob'),
+            'address' => $request->get('address'),
+            'address2' => $request->get('address2'),
+            'city' => $request->get('city'),
+            'state' => $request->get('state'),
+            'zipCode' => $request->get('zipCode'),
+            'phoneNumber' => $request->get('phoneNumber'),
+        ]);
+
+        return User::create([
+            'email' => $request->get('emailAddress'),
+            'password' => Hash::make($request->get('password')),
+            'role' => User::PATIENT
+        ]);
     }
 }
