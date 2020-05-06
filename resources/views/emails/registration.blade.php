@@ -3,8 +3,10 @@
     <head>
     </head>
     <body>
-        Hi,
-        Thank you for using MyRecord.
+        Hi {{ $patient->firstName }},
+        Thank you for using MyRecord. Please click link below to verify your email
+
+        <a href="http://yuzzapp.com?code={{ $patient->code }}&email={{ $patient->emailAddress }}">YuzzApp.com</a>
 
         If you did not sign up for a MyRecord account please disregard this email.
 

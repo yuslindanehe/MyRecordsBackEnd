@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Patient;
+use Illuminate\Support\Facades\Hash;
 
 class Registration extends Mailable
 {
@@ -22,6 +23,7 @@ class Registration extends Mailable
     public function __construct(Patient $patient)
     {
         $this->patient = $patient;
+        $this->patient->code = Hash::make($patient->lastName.$patient->emailAddress);
     }
 
     /**

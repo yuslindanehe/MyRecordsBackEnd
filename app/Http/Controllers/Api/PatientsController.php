@@ -112,10 +112,11 @@ class PatientsController extends Controller
         $user = User::create([
             'email' => $request->get('emailAddress'),
             'password' => Hash::make($request->get('password')),
-            'role' => User::DOCTOR
+            'role' => User::PATIENT
         ]);
 
-        Mail::to($user->emailAddress)->send(new Registration($patient));
+        Mail::to($user->email)->send(new Registration($patient));
+
         return response()->json("ok",200);
     }
 

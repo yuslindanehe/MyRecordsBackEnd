@@ -41,6 +41,8 @@ Route::get('test-result/patient/','Api\TestResultController@showBasedOnPatient')
 
 Route::get('health-information/patient/','Api\HealthInformationController@showBasedOnPatient');
 
+Route::get('emailVerification', 'UserController@emailVerification');
+
 Route::apiResource('patients', 'Api\PatientsController');
 Route::apiResource('staffs', 'Api\StaffsController');
 Route::apiResource('health-information', 'Api\HealthInformationController');
