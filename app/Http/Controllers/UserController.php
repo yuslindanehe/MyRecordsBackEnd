@@ -19,6 +19,7 @@ class UserController extends Controller
             } else {
                 $person = Staff::where('emailAddress', $user->email)->first();
             }
+
             if (Hash::check($person->lastName.$person->emailAddress, $request->code)) {
                 $user->email_verified_at = new Carbon();
                 $user->save();
