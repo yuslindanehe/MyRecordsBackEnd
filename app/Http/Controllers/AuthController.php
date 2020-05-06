@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Staff;
 use App\Patient;
 use Illuminate\Http\Request;
@@ -49,7 +50,7 @@ class AuthController extends Controller
     public function me()
     {
         $user = auth()->user();
-        if ($user->role == USER::PATIENT)
+        if ($user->role == User::PATIENT)
             $person = Patient::select('firstName', 'lastName')->where('emailAddress', $user->email)->first();
         else
             $person = Staff::select('firstName', 'lastName')->where('emailAddress', $user->email)->first();
