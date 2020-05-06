@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -46,6 +47,13 @@ class AuthController extends Controller
      */
     public function me()
     {
+        $user = auth()->user();
+        if ($user->role == USER::PATIENT)
+            $person = Patient::select('firstName', 'lastName')->where('emailAddress', $user->email)->first();
+        else
+            $person = Staff::select('firstName', 'lastName')->where('emailAddress', $user->email)->first();
+        $user->name = $person->firstName . ' ' . $person->lastName;
+
         return response()->json(['user' => auth()->user()]);
     }
 
