@@ -38,10 +38,14 @@ Route::post('medication/','Api\MedicationController@store');
 Route::post('test-result', 'Api\TestResultController@store');
 Route::get('test-result/patient/','Api\TestResultController@showBasedOnPatient');
 
-
 Route::get('health-information/patient/','Api\HealthInformationController@showBasedOnPatient');
 
 Route::get('emailVerification', 'UserController@emailVerification');
+
+Route::post('forgot-password-verification', 'UserController@forgotPasswordVerification');
+Route::post('forgot-password-code', 'UserController@send2FACode');
+Route::post('forgot-password-authenticate-code', 'UserController@authenticate2FACode');
+Route::post('reset-password','UserController@resetPassword');
 
 Route::apiResource('patients', 'Api\PatientsController');
 Route::apiResource('staffs', 'Api\StaffsController');

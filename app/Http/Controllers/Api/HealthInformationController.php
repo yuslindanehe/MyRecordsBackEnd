@@ -18,12 +18,13 @@ class HealthInformationController extends Controller
      */
     public function store(Request $request)
     {
-        return HealthInformation::updateOrCreate(['patientId' => $request->get('patientId')], $request->only([
-            'height',
-            'allergies',
-            'immunizationHistory',
-            'illnessHistory'
-        ]));
+        return HealthInformation::updateOrCreate(['patientId' => $request->get('patientId')], [
+            'height' => $request->get('height'),
+            'weight' => $request->get('weight'),
+            'allergies' => $request->get('allergies'),
+            'immunizationHistory' => $request->get('immunizationHistory'),
+            'illnessHistory' => $request->get('illnessHistory')
+        ]);
     }
 
     /**
@@ -50,6 +51,7 @@ class HealthInformationController extends Controller
         $healthInformation->update($request->only([
             'patientId',
             'height',
+            'weight',
             'allergies',
             'immunizationHistory',
             'illnessHistory'
