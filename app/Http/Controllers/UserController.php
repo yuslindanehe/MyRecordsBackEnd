@@ -24,11 +24,11 @@ class UserController extends Controller
                 $user->email_verified_at = new Carbon();
                 $user->save();
 
-                return response()->json("match", 200);
+                return response()->json("Thank you, your email is verified", 200);
             } else
-                return response()->json("not match", 200);
+                return response()->json("Your email is not match", 200);
         } else {
-            return response()->json("not match", 200);
+            return response()->json("", 200);
         }
     }
 }
