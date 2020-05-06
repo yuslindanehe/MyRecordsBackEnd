@@ -61,13 +61,15 @@ class User extends Authenticatable implements JWTSubject
     public function send2FACode($code)
     {
         if($this->role == self::PATIENT) {
-            $patient = Patient::select('phoneNumber')->where('emailAddress', $this->email)->first();
-
-            Nexmo::message()->send([
-                'to'=> $patient->phoneNumber,
-                'from' => config('nexmo.phone_number'),
-                'text' => $code
-            ]);
+            $person = Patient::select('phoneNumber')->where('emailAddress', $this->email)->first();
+        } else {
+            $person = Staff::select('phoneNumber')->where('emailAddress', $this->email)->first();
         }
+
+        Nexmo::message()->send([
+            'to'=> $person->phoneNumber,
+            'from' => config('nexmo.phone_number'),
+            'text' => $code
+        ]);
     }
 }

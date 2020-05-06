@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Mail\Registration;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class PatientsController extends Controller
 {
@@ -93,7 +96,7 @@ class PatientsController extends Controller
     }
 
     public function register(Request $request) {
-        Patient::create([
+        $patient = Patient::create([
             'emailAddress' => $request->get('emailAddress'),
             'firstName' => $request->get('firstName'),
             'lastName' => $request->get('lastName'),
@@ -106,10 +109,17 @@ class PatientsController extends Controller
             'phoneNumber' => $request->get('phoneNumber'),
         ]);
 
-        return User::create([
+        $user = User::create([
             'email' => $request->get('emailAddress'),
             'password' => Hash::make($request->get('password')),
-            'role' => User::PATIENT
+            'role' => User::DOCTOR
         ]);
+
+        Mail::to($user->emailAddress)->send(new Registration($patient));
+        return response()->json("ok",200);
+    }
+
+    public function testEmail() {
+
     }
 }
